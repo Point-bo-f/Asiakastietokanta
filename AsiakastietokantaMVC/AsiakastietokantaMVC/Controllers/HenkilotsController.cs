@@ -12,7 +12,7 @@ namespace AsiakastietokantaMVC.Controllers
 {
     public class HenkilotsController : Controller
     {
-        private AsiakastietokantaEntities4 db = new AsiakastietokantaEntities4();
+        AsiakastietokantaEntities4 db = new AsiakastietokantaEntities4();
 
         // GET: Henkilots
         public ActionResult Index()

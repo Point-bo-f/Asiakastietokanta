@@ -12,7 +12,7 @@ namespace AsiakastietokantaMVC.Controllers
 {
     public class ProjektitsController : Controller
     {
-        private AsiakastietokantaEntities4 db = new AsiakastietokantaEntities4();
+        AsiakastietokantaEntities4 db = new AsiakastietokantaEntities4();
 
         // GET: Projektits
         public ActionResult Index()
@@ -62,7 +62,7 @@ namespace AsiakastietokantaMVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProjektiID,Nimi")] Projektit projektit)
+        public ActionResult Create([Bind(Include = "ProjektiID,Projektinimi")] Projektit projektit)
         {
             if (ModelState.IsValid)
             {
@@ -94,7 +94,7 @@ namespace AsiakastietokantaMVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProjektiID,Nimi")] Projektit projektit)
+        public ActionResult Edit([Bind(Include = "ProjektiID,Projektinimi")] Projektit projektit)
         {
             if (ModelState.IsValid)
             {

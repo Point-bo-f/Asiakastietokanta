@@ -38,7 +38,11 @@ namespace AsiakastietokantaMVC.Controllers
         // GET: Tunnits/Create
         public ActionResult Create()
         {
-            return View();
+            AsiakastietokantaEntities4 db = new AsiakastietokantaEntities4();
+
+            Tunnit model = new Tunnit();
+
+            return View(model);
         }
 
         // POST: Tunnits/Create

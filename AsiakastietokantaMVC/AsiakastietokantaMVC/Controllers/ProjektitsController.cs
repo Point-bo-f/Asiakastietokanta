@@ -54,7 +54,12 @@ namespace AsiakastietokantaMVC.Controllers
         // GET: Projektits/Create
         public ActionResult Create()
         {
-            return View();
+            AsiakastietokantaEntities4 db = new AsiakastietokantaEntities4();
+
+            Projektit model = new Projektit();
+
+            return View(model);
+
         }
 
         // POST: Projektits/Create

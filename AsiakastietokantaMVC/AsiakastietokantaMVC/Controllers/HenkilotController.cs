@@ -1,150 +1,166 @@
-﻿//using AsiakastietokantaMVC.Models;
-//using Newtonsoft.Json;
-//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Web;
-//using System.Web.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Linq;
+using System.Net;
+using System.Web;
+using System.Web.Mvc;
+using AsiakastietokantaMVC.Models;
 
-//namespace AsiakastietokantaMVC.Controllers
-//{
-//    //public class HenkilotController : Controller
-//    //{
-//    //    // GET: Projektit
-//    //   // public ActionResult Index()
-//    //   // {
-//    //        //List<Henkilot> model = new AsiakastietokantaEntities3();
-//    //        //try
-//    //        {
-//    //            AsiakastietokantaEntities3 entities = new AsiakastietokantaEntities3();
-//    //           // model = entities.Henkilot.ToList();
+namespace AsiakastietokantaMVC.Controllers
+{
+    public class HenkilotController : Controller
+    {
+        AsiakastietokantaEntities4 db = new AsiakastietokantaEntities4();
 
-//    //           // entities.Dispose();
-//    //        }
+        // GET: Henkilots
+        public ActionResult Index()
+        {
+            {
+                List<Henkilot> model = new List<Henkilot>();
+                try
+                {
+                    AsiakastietokantaEntities4 entities = new AsiakastietokantaEntities4();
+                    model = entities.Henkilot.ToList();
 
-//            //catch (Exception ex)
-//            //{
-//               // ViewBag.ErrorMessage = ex.GetType() + ": " + ex.Message;
-//            }
+                    entities.Dispose();
+                }
 
-//            //return View(model);
+                catch (Exception ex)
+                {
+                    ViewBag.ErrorMessage = ex.GetType() + ": " + ex.Message;
+                }
 
-//            //{
+                return View(model);
+            }
+        }
 
-//            //    // GET: Projektit
-//            //    AsiakastietokantaEntities2 entities = new AsiakastietokantaEntities2();
-//            //    //List<Projektit> model = entities.Projektit.ToList();
+        // GET: Henkilots/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Henkilot henkilot = db.Henkilot.Find(id);
+            if (henkilot == null)
+            {
+                return HttpNotFound();
+            }
+            return View(henkilot);
+        }
 
-//            //    var model = (from h in entities.Henkilot
-//            //                 select new
-//            //                 {
-//            //                     HenkilöId = h.HenkiloID,
-//            //                     Etunimi = h.Etunimi,
-//            //                     Sukunimi = h.Sukunimi,
-//            //                     Osoite = h.Osoite,
-//            //                     Esimies = h.Esimies
-//            //                 }).ToList();
+        // GET: Henkilots/Create
+        public ActionResult Create()
+        {
+            AsiakastietokantaEntities4 db = new AsiakastietokantaEntities4();
 
-//            //    string json = JsonConvert.SerializeObject(model);
+            Henkilot model = new Henkilot();
+            
+            return View(model);
+            
+             
+        }
 
+        // POST: Henkilots/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Henkilot model)
+        {
+            AsiakastietokantaEntities4 db = new AsiakastietokantaEntities4();
 
-//            //    entities.Dispose();
+            Henkilot henkilot = new Henkilot();
+            henkilot.HenkiloID = model.HenkiloID;
+            henkilot.Etunimi = model.Etunimi;
+            henkilot.Sukunimi = model.Sukunimi;
+            henkilot.Osoite = model.Osoite;
+            henkilot.Esimies = model.Esimies;
 
-//            //    Response.Expires = -1;
-//            //    Response.CacheControl = "no-cache";
+            db.Henkilot.Add(henkilot);
 
-//            //    return Json(json, JsonRequestBehavior.AllowGet);
-//            //}
-//            //public JsonResult GetSingleHenkilo(int id)
-//            //{
-//            //    AsiakastietokantaEntities2 entities = new AsiakastietokantaEntities2();
-//            //    var model = (from h in entities.Henkilot
+            try
+            {
+                db.SaveChanges();
+            }
 
-//            //                 where h.HenkiloID == id
+            catch (Exception ex)
+            {
+            }
+       
+            
+                return RedirectToAction("Index");
+            }
 
-//            //                 select new
-//            //                 {
-//            //                     HenkilöId = h.HenkiloID,
-//            //                     Etunimi = h.Etunimi,
-//            //                     Sukunimi = h.Sukunimi,
-//            //                     Osoite = h.Osoite,
-//            //                     Esimies = h.Esimies                                        
+    
+        
 
-//            //                 }).FirstOrDefault();
+        // GET: Henkilots/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Henkilot henkilot = db.Henkilot.Find(id);
+            if (henkilot == null)
+            {
+                return HttpNotFound();
+            }
+            return View(henkilot);
+        }
 
-//            //    string json = JsonConvert.SerializeObject(model);
-//            //    entities.Dispose();
+        // POST: Henkilots/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "HenkiloID,Etunimi,Sukunimi,Osoite,Esimies")] Henkilot henkilot)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(henkilot).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(henkilot);
+        }
 
-//            //    return Json(json, JsonRequestBehavior.AllowGet);
-//            //}
-//            //public ActionResult Update(Models.Henkilot henk)
-//            //{
-//            //    AsiakastietokantaEntities2 entities = new AsiakastietokantaEntities2();
-//            //    int id = henk.HenkiloID;
+        // GET: Henkilots/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Henkilot henkilot = db.Henkilot.Find(id);
+            if (henkilot == null)
+            {
+                return HttpNotFound();
+            }
+            return View(henkilot);
+        }
 
-//            //    bool OK = false;
+        // POST: Henkilots/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Henkilot henkilot = db.Henkilot.Find(id);
+            db.Henkilot.Remove(henkilot);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
-//            //    // onko kyseessä muokkaus vai uuden lisääminen?
-//            //    if (id = "(uusi)")
-//            //    {
-//            //        // kyseessä on uuden asiakkaan lisääminen, kopioidaan kentät
-//            //        Models.Henkilot dbItem = new Models.Henkilot()
-//            //        {
-//            //            //HenkiloID = henk.Etunimi.Substring(0, 5).Trim().ToUpper(),
-//            //            Etunimi = henk.Etunimi,
-//            //            Sukunimi = henk.Sukunimi,
-//            //            Osoite = henk.Osoite,
-//            //            Esimies = henk.Esimies
-//            //        };
-
-//            //        // tallennus tietokantaan
-//            //        entities.Henkilot.Add(dbItem);
-//            //        entities.SaveChanges();
-//            //        OK = true;
-//            //    }
-//            //    else
-//            //    {
-//            //        // muokkaus, haetaan id:n perusteella riviä tietokannasta
-//            //        Models.Henkilot dbItem = (from c in entities.Henkilot
-//            //                           where c.HenkiloID == id
-//            //                           select c).FirstOrDefault();
-//            //        if (dbItem != null)
-//            //        {
-//            //            dbItem.Etunimi = henk.Etunimi;
-//            //            dbItem.Sukunimi = henk.Sukunimi;
-//            //            dbItem.Osoite = henk.Osoite;
-//            //            dbItem.Esimies = henk.Esimies;
-
-//            //            // tallennus tietokantaan
-//            //            entities.SaveChanges();
-//            //            OK = true;
-//            //        }
-//            //    }
-//            //    entities.Dispose();
-
-//            //    return Json(OK, JsonRequestBehavior.AllowGet);
-//            //}
-
-//            //public ActionResult Delete(int id)
-//            //{
-//            //    AsiakastietokantaEntities2 entities = new AsiakastietokantaEntities2();
-
-//            //    // etsitään id:n perusteella asiakasrivi kannasta
-//            //    bool OK = false;
-//            //    Henkilot dbItem = (from h in entities.Henkilot
-//            //                       where h.HenkiloID == id
-//            //                       select h).FirstOrDefault();
-//            //    if (dbItem != null)
-//            //    {
-//            //        // tietokannasta poisto
-//            //        entities.Henkilot.Remove(dbItem);
-//            //        entities.SaveChanges();
-//            //        OK = true;
-//            //    }
-//            //    entities.Dispose();
-
-//            //    return Json(OK, JsonRequestBehavior.AllowGet);
-//            //}
-//        }
-//    }
-//}
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+    }
+}

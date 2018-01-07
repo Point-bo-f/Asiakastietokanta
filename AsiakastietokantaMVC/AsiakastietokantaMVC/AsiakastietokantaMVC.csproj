@@ -152,13 +152,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\HenkilotsController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HenkilotController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProjektitController.cs" />
-    <Compile Include="Controllers\ProjektitsController.cs" />
     <Compile Include="Controllers\TunnitController.cs" />
-    <Compile Include="Controllers\TunnitsController.cs" />
     <Compile Include="Entities\Dispose.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -259,24 +256,21 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Henkilot\Index.cshtml" />
-    <Content Include="Views\Tunnit\Index.cshtml" />
+    <Content Include="Views\Projektit\Create.cshtml" />
+    <Content Include="Views\Projektit\Delete.cshtml" />
+    <Content Include="Views\Projektit\Details.cshtml" />
+    <Content Include="Views\Projektit\Edit.cshtml" />
     <Content Include="Views\Projektit\Index.cshtml" />
-    <Content Include="Views\Projektits\Create.cshtml" />
-    <Content Include="Views\Projektits\Delete.cshtml" />
-    <Content Include="Views\Projektits\Details.cshtml" />
-    <Content Include="Views\Projektits\Edit.cshtml" />
-    <Content Include="Views\Projektits\Index.cshtml" />
-    <Content Include="Views\Tunnits\Create.cshtml" />
-    <Content Include="Views\Tunnits\Delete.cshtml" />
-    <Content Include="Views\Tunnits\Details.cshtml" />
-    <Content Include="Views\Tunnits\Edit.cshtml" />
-    <Content Include="Views\Tunnits\Index.cshtml" />
-    <Content Include="Views\Henkilots\Create.cshtml" />
-    <Content Include="Views\Henkilots\Delete.cshtml" />
-    <Content Include="Views\Henkilots\Details.cshtml" />
-    <Content Include="Views\Henkilots\Edit.cshtml" />
-    <Content Include="Views\Henkilots\Index.cshtml" />
+    <Content Include="Views\Tunnit\Create.cshtml" />
+    <Content Include="Views\Tunnit\Delete.cshtml" />
+    <Content Include="Views\Tunnit\Details.cshtml" />
+    <Content Include="Views\Tunnit\Edit.cshtml" />
+    <Content Include="Views\Tunnit\Index.cshtml" />
+    <Content Include="Views\Henkilot\Create.cshtml" />
+    <Content Include="Views\Henkilot\Delete.cshtml" />
+    <Content Include="Views\Henkilot\Details.cshtml" />
+    <Content Include="Views\Henkilot\Edit.cshtml" />
+    <Content Include="Views\Henkilot\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

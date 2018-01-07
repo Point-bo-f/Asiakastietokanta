@@ -1,132 +1,131 @@
-﻿using AsiakastietokantaMVC.Models;
-using Newtonsoft.Json;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
+using System.Web;
 using System.Web.Mvc;
+using AsiakastietokantaMVC.Models;
 
 namespace AsiakastietokantaMVC.Controllers
 {
     public class TunnitController : Controller
     {
-        // GET: Tunnit
+        private AsiakastietokantaEntities4 db = new AsiakastietokantaEntities4();
+
+        // GET: Tunnits
         public ActionResult Index()
         {
-            return View();
+            return View(db.Tunnit.ToList());
         }
-    //    public JsonResult GetList()
-    //    {
 
-    //        // GET: Projektit
-    //        AsiakastietokantaEntities2 entities = new AsiakastietokantaEntities2();
-    //        //List<Tunti> model = entities.Projektit.ToList();
+        // GET: Tunnits/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Tunnit tunnit = db.Tunnit.Find(id);
+            if (tunnit == null)
+            {
+                return HttpNotFound();
+            }
+            return View(tunnit);
+        }
 
-    //        var model = (from t in entities.Tunnit
-    //                     select new
-    //                     {
-    //                         TuntiID = t.TuntiID,
-    //                         ProjektiID = t.ProjektiID,
-    //                         HenkilöID = t.HenkiloID,
-    //                         Pvm = t.Pvm,
-    //                         Tyotunnit = t.Tunnit1
-    //                     }).ToList();
+        // GET: Tunnits/Create
+        public ActionResult Create()
+        {
+            AsiakastietokantaEntities4 db = new AsiakastietokantaEntities4();
 
-    //        string json = JsonConvert.SerializeObject(model);
+            Tunnit model = new Tunnit();
 
-    //        entities.Dispose();
+            return View(model);
+        }
 
-    //        Response.Expires = -1;
-    //        Response.CacheControl = "no-cache";
+        // POST: Tunnits/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "TuntiID,ProjektiID,HenkiloID,Pvm,Projektitunnit")] Tunnit tunnit)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Tunnit.Add(tunnit);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
 
-    //        return Json(json, JsonRequestBehavior.AllowGet);
+            return View(tunnit);
+        }
 
-    //    }
-    //    public JsonResult GetSingleTunti(string id)
-    //    {
-    //        AsiakastietokantaEntities2 entities = new AsiakastietokantaEntities2();
-    //                    var model = (from t in entities.Tunnit
-    //                        where t.TuntiID == id
+        // GET: Tunnits/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Tunnit tunnit = db.Tunnit.Find(id);
+            if (tunnit == null)
+            {
+                return HttpNotFound();
+            }
+            return View(tunnit);
+        }
 
-    //                                 select new
-    //                     {
-    //                         TuntiID = t.TuntiID,
-    //                         ProjektiID = t.ProjektiID,
-    //                         HenkilöID = t.HenkiloID,
-    //                         Pvm = t.Pvm,
-    //                         Tyotunnit = t.Tunnit1
+        // POST: Tunnits/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "TuntiID,ProjektiID,HenkiloID,Pvm,Projektitunnit")] Tunnit tunnit)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(tunnit).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(tunnit);
+        }
 
-    //                     }).FirstOrDefault();
+        // GET: Tunnits/Delete/5
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Tunnit tunnit = db.Tunnit.Find(id);
+            if (tunnit == null)
+            {
+                return HttpNotFound();
+            }
+            return View(tunnit);
+        }
 
-    //        string json = JsonConvert.SerializeObject(model);
-    //        entities.Dispose();
+        // POST: Tunnits/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Tunnit tunnit = db.Tunnit.Find(id);
+            db.Tunnit.Remove(tunnit);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
-    //        return Json(json, JsonRequestBehavior.AllowGet);
-    //    }
-
-    //    public ActionResult Update(Models.Tunnit tunt)
-    //    {
-    //        AsiakastietokantaEntities2 entities = new AsiakastietokantaEntities2();
-    //        string id = tunt.TuntiID;
-
-    //        bool OK = false;
-
-    //        // onko kyseessä muokkaus vai uuden lisääminen?
-    //        if (id == "(uusi)")
-    //        {
-    //            // kyseessä on uuden asiakkaan lisääminen, kopioidaan kentät
-    //            Models.Tunnit dbItem = new Models.Tunnit()
-    //            {
-    //                TuntiID = tunt.ProjektiID.Substring(0, 5).Trim().ToUpper(),
-    //                HenkiloID = tunt.HenkiloID,
-    //                Pvm = tunt.Pvm,
-    //                Tunnit1 = tunt.Tunnit1
-    //            };
-
-    //            // tallennus tietokantaan
-    //            entities.Tunnit.Add(dbItem);
-    //            entities.SaveChanges();
-    //            OK = true;
-    //        }
-    //        else
-    //        {
-    //            // muokkaus, haetaan id:n perusteella riviä tietokannasta
-    //            Models.Tunnit dbItem = (from t in entities.Tunnit
-    //                                      where t.TuntiID == id
-    //                                      select t).FirstOrDefault();
-    //            if (dbItem != null)
-    //            {
-    //                dbItem.ProjektiID = tunt.ProjektiID;
-    //                dbItem.HenkiloID = tunt.HenkiloID;
-    //                dbItem.Pvm = tunt.Pvm;
-    //                dbItem.Tunnit1 = tunt.Tunnit1;
-
-    //                // tallennus tietokantaan
-    //                entities.SaveChanges();
-    //                OK = true;
-    //            }
-    //        }
-    //        entities.Dispose();
-
-    //        return Json(OK, JsonRequestBehavior.AllowGet);
-    //    }
-
-    //    public ActionResult Delete(int id)
-    //    {
-    //        AsiakastietokantaEntities2 entities = new AsiakastietokantaEntities2();
-
-    //        // etsitään id:n perusteella asiakasrivi kannasta
-    //        bool OK = false;
-    //        Tunnit dbItem = (from t in entities.Tunnit
-    //                          where t.TuntiID == id
-    //                          select t).FirstOrDefault();
-    //        if (dbItem != null)
-    //        {
-    //            // tietokannasta poisto
-    //            entities.Tunnit.Remove(dbItem);
-    //            entities.SaveChanges();
-    //            OK = true;
-    //        }
-    //        entities.Dispose();
-
-    //        return Json(OK, JsonRequestBehavior.AllowGet);
-    //    }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
     }
 }

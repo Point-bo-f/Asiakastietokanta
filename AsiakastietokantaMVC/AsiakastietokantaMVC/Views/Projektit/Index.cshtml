@@ -1,131 +1,39 @@
-﻿@{
+﻿@model IEnumerable<AsiakastietokantaMVC.Models.Projektit>
+
+@{
     ViewBag.Title = "Index";
 }
-@section scripts {
 
-    <script type="text/javascript">
-        $(function päivitäProjektilistaus() {
-            $.getJSON("/projektit/getlist", null, function (json) {
-
-                var projekti = JSON.parse(json);
-                //alert("Projektien lkm: " + projekti.length);
-
-                var html = "";
-                for (var index = 0; index < projekti.length; index++) {
-                    html += "<tr>" +
-                        "<td><a href='#'><span class='glyphicon glyphicon-pencil'></span></a></td>" +
-                        "<td>" + projekti[index].ProjektiID + "</td>" +
-                        "<td>" + projekti[index].Nimi + "</td>" +
-                        "<td><a href='#'><span class='glyphicon glyphicon-trash'></span></a></td>" +
-                        "</tr>\r\n";
-                }
-
-                $("#projektiList tbody").html(html);
-
-                // tietojen muokkaus
-                $(".glyphicon-pencil").click(function () {
-                    // etsitään asiakkaan tiedot klikatulta riviltä
-                    var projektiId = $(this).parent().parent().next().text();
-                    alert(projektiId);
-
-                    // haetaan asiakkaan tiedot id:n perusteella
-                    $.getJSON("/projektit/getsingleprojekti/" + projektiId, null, function (json2) {
-                        var projekti = JSON.parse(json2);
-
-                        // kopioidaan tiedot ikkunaan
-                        $("#projektiModal_ProjektiId").val(projekti.ProjektiID);
-                        $("#projektiModal_Nimi").val(projekti.Nimi);
-
-                        // näytetään ikkuna
-                        $("#projektiModalTitle").text("Muokkaa projektia");
-                        $("#projektiModalDialog").modal("show");
-                    });
-                });
-
-                // tietojen poisto
-                $(".glyphicon-trash").click(function () {
-                    // etsitään asiakkaan tiedot klikatulta riviltä
-                    console.log("Poistoa klikattu");
-                    var projektiId = $(this).parent().parent().prev().prev().prev().prev().text();
-                    var ok = confirm("Haluatko varmasti poistaa projektia " + projektiId + "?");
-
-                    if (ok == true) {
-                        $.getJSON("/projektit/delete/" + projektiId, null, function (status) {
-                            if (status == true) {
-                                alert("Projekti on nyt poistettu!");
-                                päivitäProjektilistaus();
-                            }
-                            else {
-                                alert("Poistaminen ei onnistunut, yritä uudelleen!");
-                            }
-                        });
-                    }
-                });
-            });
-        });
-
-        // sivun alustaminen
-        $(function () {
-            päivitäProjektilistaus();
-
-            $("#addNewProjektiButton").click(function () {
-
-                // tyhjennetään ikkunan tiedot
-                $("#projektiModal_ProjektiId").val("(uusi)");
-                $("#projektiModal_Nimi").val("");
-                $("#projektiModalTitle").text("Lisää uusi projekti");
-                $("#projektiModalDialog").modal("show");
-            });
-
-            $("#projektiModalSaveButton").click(function () {
-                // luetaan käyttäjän syöttämät kentät
-                var details = {
-                    ProjektiID: $("#projektiModal_projektiId").val(),
-                    Nimi: $("#projektiModal_Nimi").val(),
-                };
-
-                $.post("/projektit/update/", details, function (status) {
-                    if (status == true) {
-                        alert("Uudet tiedot tallennettu!");
-                        $("#projektiModalDialog").modal("hide");
-                        päivitäProjektilistaus();
-                    }
-                    else {
-                        alert("Tallennus ei onnistunut, yritä uudelleen!");
-                    }
-                });
-            });
-
-            console.log("Alustus valmis!");
-        });
-    </script>
-}
 <h2>Projektit</h2>
-<table class="table table-striped" id="projektiList">
-    <thead>
-        <tr>
-            <th>ProjektiID</th>
-            <th>Nimi</th>
-        </tr>
-    </thead>
-    <tbody></tbody>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProjektiID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Projektinimi)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProjektiID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Projektinimi)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ProjektiID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ProjektiID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ProjektiID })
+        </td>
+    </tr>
+}
+
 </table>
-<div class="modal fade" tabindex="-1" role="dialog" id="projektiModalDialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title"><span id="customerModalTitle">Muokkaa projektia</span></h4>
-            </div></div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-3">Projekti-id</div>
-                    <div class="col-md-6"><input class="form-control" id="projektiModal_ProjektiId" type="text" readonly></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">Nimi</div>
-                    <div class="col-md-6"><input class="form-control" id="projektiModal_Nimi" type="text"></div>
-                </div>
-           </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->

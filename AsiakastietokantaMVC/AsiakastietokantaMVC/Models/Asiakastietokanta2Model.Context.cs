@@ -13,10 +13,10 @@ namespace AsiakastietokantaMVC.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class AsiakastietokantaEntities4 : DbContext
+    public partial class AsiakastietokantaEntities : DbContext
     {
-        public AsiakastietokantaEntities4()
-            : base("name=AsiakastietokantaEntities4")
+        public AsiakastietokantaEntities()
+            : base("name=AsiakastietokantaEntities")
         {
         }
     

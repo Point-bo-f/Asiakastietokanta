@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="AsiakastietokantaModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="AsiakastietokantaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Henkilot">
           <Key>
             <PropertyRef Name="HenkiloID" />
@@ -56,7 +56,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="AsiakastietokantaModel1StoreContainer">
+        <EntityContainer Name="AsiakastietokantaModelStoreContainer">
           <EntitySet Name="Henkilot" EntityType="Self.Henkilot" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Projektit" EntityType="Self.Projektit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tunnit" EntityType="Self.Tunnit" Schema="dbo" store:Type="Tables" />
@@ -73,7 +73,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="AsiakastietokantaModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="AsiakastietokantaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Henkilot">
           <Key>
             <PropertyRef Name="HenkiloID" />
@@ -129,7 +129,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="AsiakastietokantaEntities4" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="AsiakastietokantaEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Henkilot" EntityType="Self.Henkilot" />
           <EntitySet Name="Projektit" EntityType="Self.Projektit" />
           <EntitySet Name="Tunnit" EntityType="Self.Tunnit" />
@@ -147,9 +147,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="AsiakastietokantaModel1StoreContainer" CdmEntityContainer="AsiakastietokantaEntities4">
+        <EntityContainerMapping StorageEntityContainer="AsiakastietokantaModelStoreContainer" CdmEntityContainer="AsiakastietokantaEntities">
           <EntitySetMapping Name="Henkilot">
-            <EntityTypeMapping TypeName="AsiakastietokantaModel1.Henkilot">
+            <EntityTypeMapping TypeName="AsiakastietokantaModel.Henkilot">
               <MappingFragment StoreEntitySet="Henkilot">
                 <ScalarProperty Name="HenkiloID" ColumnName="HenkiloID" />
                 <ScalarProperty Name="Etunimi" ColumnName="Etunimi" />
@@ -160,7 +160,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Projektit">
-            <EntityTypeMapping TypeName="AsiakastietokantaModel1.Projektit">
+            <EntityTypeMapping TypeName="AsiakastietokantaModel.Projektit">
               <MappingFragment StoreEntitySet="Projektit">
                 <ScalarProperty Name="ProjektiID" ColumnName="ProjektiID" />
                 <ScalarProperty Name="Projektinimi" ColumnName="Projektinimi" />
@@ -168,7 +168,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Tunnit">
-            <EntityTypeMapping TypeName="AsiakastietokantaModel1.Tunnit">
+            <EntityTypeMapping TypeName="AsiakastietokantaModel.Tunnit">
               <MappingFragment StoreEntitySet="Tunnit">
                 <ScalarProperty Name="TuntiID" ColumnName="TuntiID" />
                 <ScalarProperty Name="ProjektiID" ColumnName="ProjektiID" />

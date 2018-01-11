@@ -7,12 +7,13 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AsiakastietokantaMVC.Models;
+using Newtonsoft.Json;
 
 namespace AsiakastietokantaMVC.Controllers
 {
     public class TunnitController : Controller
     {
-        private AsiakastietokantaEntities4 db = new AsiakastietokantaEntities4();
+        private AsiakastietokantaEntities db = new AsiakastietokantaEntities();
 
         // GET: Tunnits
         public ActionResult Index()
@@ -38,7 +39,7 @@ namespace AsiakastietokantaMVC.Controllers
         // GET: Tunnits/Create
         public ActionResult Create()
         {
-            AsiakastietokantaEntities4 db = new AsiakastietokantaEntities4();
+            AsiakastietokantaEntities db = new AsiakastietokantaEntities();
 
             Tunnit model = new Tunnit();
 
@@ -128,4 +129,4 @@ namespace AsiakastietokantaMVC.Controllers
             base.Dispose(disposing);
         }
     }
-}
+}  

@@ -12,7 +12,7 @@ namespace AsiakastietokantaMVC.Controllers
 {
     public class ProjektitController : Controller
     {
-        AsiakastietokantaEntities4 db = new AsiakastietokantaEntities4();
+        AsiakastietokantaEntities db = new AsiakastietokantaEntities();
 
         // GET: Projektits
         public ActionResult Index()
@@ -21,7 +21,7 @@ namespace AsiakastietokantaMVC.Controllers
                 List<Projektit> model = new List<Projektit>();
                 try
                 {
-                    AsiakastietokantaEntities4 entities = new AsiakastietokantaEntities4();
+                    AsiakastietokantaEntities entities = new AsiakastietokantaEntities();
                     model = entities.Projektit.ToList();
 
                     entities.Dispose();
@@ -54,7 +54,7 @@ namespace AsiakastietokantaMVC.Controllers
         // GET: Projektits/Create
         public ActionResult Create()
         {
-            AsiakastietokantaEntities4 db = new AsiakastietokantaEntities4();
+            AsiakastietokantaEntities db = new AsiakastietokantaEntities();
 
             Projektit model = new Projektit();
 

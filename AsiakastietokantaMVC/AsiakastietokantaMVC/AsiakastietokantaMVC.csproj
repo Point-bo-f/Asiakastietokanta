@@ -154,6 +154,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HenkilotController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MasterDetailController.cs" />
     <Compile Include="Controllers\ProjektitController.cs" />
     <Compile Include="Controllers\TunnitController.cs" />
     <Compile Include="Entities\Dispose.cs" />
@@ -206,6 +207,14 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <EntityDeploy Include="Models\Asiakastietokanta2Model.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Asiakastietokanta2Model.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Asiakastietokanta2Model.edmx.diagram">
+      <DependentUpon>Asiakastietokanta2Model.edmx</DependentUpon>
+    </Content>
+    <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Models\Asiakastietokanta2Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Asiakastietokanta2Model.edmx</DependentUpon>
@@ -216,14 +225,6 @@
       <DependentUpon>Asiakastietokanta2Model.edmx</DependentUpon>
       <LastGenOutput>Asiakastietokanta2Model.cs</LastGenOutput>
     </Content>
-    <EntityDeploy Include="Models\Asiakastietokanta2Model.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Asiakastietokanta2Model.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Asiakastietokanta2Model.edmx.diagram">
-      <DependentUpon>Asiakastietokanta2Model.edmx</DependentUpon>
-    </Content>
-    <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
@@ -260,17 +261,16 @@
     <Content Include="Views\Projektit\Delete.cshtml" />
     <Content Include="Views\Projektit\Details.cshtml" />
     <Content Include="Views\Projektit\Edit.cshtml" />
-    <Content Include="Views\Projektit\Index.cshtml" />
     <Content Include="Views\Tunnit\Create.cshtml" />
     <Content Include="Views\Tunnit\Delete.cshtml" />
     <Content Include="Views\Tunnit\Details.cshtml" />
     <Content Include="Views\Tunnit\Edit.cshtml" />
-    <Content Include="Views\Tunnit\Index.cshtml" />
     <Content Include="Views\Henkilot\Create.cshtml" />
     <Content Include="Views\Henkilot\Delete.cshtml" />
     <Content Include="Views\Henkilot\Details.cshtml" />
     <Content Include="Views\Henkilot\Edit.cshtml" />
-    <Content Include="Views\Henkilot\Index.cshtml" />
+    <Content Include="Views\MasterDetail\Index.cshtml" />
+    <Content Include="Views\Henkilot\Index2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
